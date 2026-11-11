@@ -1,0 +1,17 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\keilARM\ARM\ARM_Compiler_5.06u7\Bin'
+Build target 'blance_car'
+compiling tracking.c...
+../Core/Inc/tracking.h(7): warning:  #1295-D: Deprecated declaration Tracking_Task_Init - give arg types
+  void Tracking_Task_Init();
+../Core/Inc/tracking.h(8): warning:  #1295-D: Deprecated declaration Tracking_Task - give arg types
+  void Tracking_Task();
+../Core/Inc/usart.h(56): warning:  #1295-D: Deprecated declaration Uart_Transmit_Task - give arg types
+  void Uart_Transmit_Task();
+../Core/Inc/usart.h(57): warning:  #1295-D: Deprecated declaration Uart_Receive_Task - give arg types
+  void Uart_Receive_Task();
+..\Core\Src\tracking.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=23948 RO-data=14316 RW-data=240 ZI-data=2992  
+FromELF: creating hex file...
+"blance_car\blance_car.axf" - 0 Error(s), 4 Warning(s).
+Build Time Elapsed:  00:00:01

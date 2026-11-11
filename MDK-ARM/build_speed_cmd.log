@@ -1,0 +1,31 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\keilARM\ARM\ARM_Compiler_5.06u7\Bin'
+Build target 'blance_car'
+compiling motor.c...
+../Core/Inc/motor.h(30): warning:  #1295-D: Deprecated declaration Motor_Task - give arg types
+  void Motor_Task();
+../Core/Inc/mpu6050.h(65): warning:  #1295-D: Deprecated declaration Calibration_100 - give arg types
+  uint8_t Calibration_100();
+../Core/Inc/mpu6050.h(73): warning:  #1295-D: Deprecated declaration MPU6050_Task - give arg types
+  void MPU6050_Task();
+../Core/Inc/tracking.h(7): warning:  #1295-D: Deprecated declaration Tracking_Task_Init - give arg types
+  void Tracking_Task_Init();
+../Core/Inc/tracking.h(8): warning:  #1295-D: Deprecated declaration Tracking_Task - give arg types
+  void Tracking_Task();
+../Core/Inc/usart.h(56): warning:  #1295-D: Deprecated declaration Uart_Transmit_Task - give arg types
+  void Uart_Transmit_Task();
+../Core/Inc/usart.h(57): warning:  #1295-D: Deprecated declaration Uart_Receive_Task - give arg types
+  void Uart_Receive_Task();
+..\Core\Src\motor.c(50): warning:  #550-D: variable "s_line_was_seen"  was set but never used
+  static uint8_t s_line_was_seen = 0;  /* 本次启动后是否真在线上跑过�?
+..\Core\Src\motor.c(55): warning:  #550-D: variable "s_prev_speed_line_pos"  was set but never used
+  static int16_t s_prev_speed_line_pos = 0;
+..\Core\Src\motor.c(56): warning:  #550-D: variable "s_rec_entry_cycles"  was set but never used
+  static uint16_t s_rec_entry_cycles = 0;   /* 进入当前恢复状态时的丢线计数，用于算已持续多久 */
+..\Core\Src\motor.c(58): warning:  #550-D: variable "s_stop_confirm"  was set but never used
+  static uint8_t s_stop_confirm = 0;        /* 刹停确认计数：连�? N 拍实测轮速低于门槛才算停�? */
+..\Core\Src\motor.c: 11 warnings, 0 errors
+linking...
+Program Size: Code=23952 RO-data=14316 RW-data=240 ZI-data=2992  
+FromELF: creating hex file...
+"blance_car\blance_car.axf" - 0 Error(s), 11 Warning(s).
+Build Time Elapsed:  00:00:02
