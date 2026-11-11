@@ -1,9 +1,9 @@
-# Blance_Car — STM32 两轮自平衡循迹小车
+# Balance_Car — STM32 两轮自平衡循迹小车
 
 基于 **STM32F103VET6** 的两轮自平衡车，站立、前进/后退、转向、循迹、丢线找回全在一颗 Cortex-M3 上完成。
 控制策略为经典的**串级 PID**：直立环（内环）→ 速度环（外环）→ 转向/循迹（差速通道），所有环共用一个 200 Hz 的时基。
 
-> 项目名里的 `Blance` 是笔误（应为 `Balance`），仓库名已固定，代码内统一用 `Blance_Target` 等命名。
+> 项目命名已统一为 `Balance`（早期版本误拼为 `Blance`，现已更正）。
 
 ---
 
@@ -109,7 +109,7 @@ STATE_TRACK ──丢线──▶ STATE_LOST ──重新看到线──▶ STAT
 │              usart.c     DMA+IDLE 接收、环形队列
 │              lcd.c/ILI9341.c  LCD 驱动与 DMA 异步刷图
 ├── Drivers/    STM32F1 HAL + CMSIS
-├── MDK-ARM/    Keil 工程（blance_car.uvprojx）
+├── MDK-ARM/    Keil 工程（balance_car.uvprojx）
 ├── img/        实物照片与图片资源
 └── vedio/      运行视频
 ```
@@ -118,13 +118,13 @@ STATE_TRACK ──丢线──▶ STATE_LOST ──重新看到线──▶ STAT
 
 ## 编译与烧录
 
-用 **Keil MDK 5** 打开 `MDK-ARM/blance_car.uvprojx`，选择 `STM32F103VET6`，直接编译。
+用 **Keil MDK 5** 打开 `MDK-ARM/balance_car.uvprojx`，选择 `STM32F103VET6`，直接编译。
 编译器宏：`USE_HAL_DRIVER, STM32F103xE`。
 
-调 `Core/Src/blance_car.ioc` 的硬件配置后，用 **STM32CubeMX** 重新生成代码即可
+调 `Core/Src/balance_car.ioc` 的硬件配置后，用 **STM32CubeMX** 重新生成代码即可
 （本仓库 `.ioc` 与代码保持同步）。
 
-固件已构建在 `MDK-ARM/blance_car/blance_car.hex`，可直接烧录。
+固件已构建在 `MDK-ARM/balance_car/balance_car.hex`，可直接烧录。
 
 ---
 
@@ -152,7 +152,7 @@ STATE_TRACK ──丢线──▶ STATE_LOST ──重新看到线──▶ STAT
 | `PID_Turn_Kp` | 转向环比例 | 0.0（默认关闭） |
 | `LinePID_Kp` | 循迹环比例 | -25.0 |
 | `Speed` | 循迹目标速度（编码器计数/10 ms） | 24.0 |
-| `Blance_Target` | 机械中值（平衡目标角度，°） | -5.4 |
+| `Balance_Target` | 机械中值（平衡目标角度，°） | -5.4 |
 
 把某个 Kp 置 0 即等于关闭该环（`pid_IsActive()` 的判定规则）。
 
@@ -180,8 +180,8 @@ VOFA 里选 FireWater 协议即可直接绘图。
 
 ### 调参注意事项（都是代码里踩过的坑）
 
-- **`Blance_Target` 是"机械中值"**，不是当前俯仰角。改它会整体平移平衡点，车会持续往前/往后倒。
-- **`PITCH_OFFSET`（mpu6050.c，默认 16.8°）与 `Blance_Target` 是两个量**：前者是传感器安装角误差，后者是控制目标角。装车后只调后者。
+- **`Balance_Target` 是"机械中值"**，不是当前俯仰角。改它会整体平移平衡点，车会持续往前/往后倒。
+- **`PITCH_OFFSET`（mpu6050.c，默认 16.8°）与 `Balance_Target` 是两个量**：前者是传感器安装角误差，后者是控制目标角。装车后只调后者。
 - **直立环 Kp/Kd 必须同号**（当前都为负）。error 已统一为 `target - current`，Kp 取负才是"倒下去向前救"；若把 Kd 单独改成正的，会变成正反馈，车会立刻飞掉。
 - **速度环 `integral_separation` 必须为 0**。若设非 0，静止时 error=目标速度恒大于门限，积分被永久禁掉，导致"车不动→误差大→没积分→更不动"的死锁。
 - **装车后若车往一侧跑偏或原地打转**，把 `STEER_ENC_KP` 改成负值（电机安装方向不匹配）。

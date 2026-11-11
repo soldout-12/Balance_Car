@@ -1,5 +1,5 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\keilARM\ARM\ARM_Compiler_5.06u7\Bin'
-Build target 'blance_car'
+Build target 'balance_car'
 compiling lcd.c...
 ../Core/Inc/motor.h(23): warning:  #1295-D: Deprecated declaration Motor_Task - give arg types
   void Motor_Task();
@@ -153,5 +153,5 @@ compiling pid_demo.c...
 linking...
 Program Size: Code=23636 RO-data=14316 RW-data=240 ZI-data=2880  
 FromELF: creating hex file...
-"blance_car\blance_car.axf" - 0 Error(s), 67 Warning(s).
+"balance_car\balance_car.axf" - 0 Error(s), 67 Warning(s).
 Build Time Elapsed:  00:00:03

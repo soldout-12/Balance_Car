@@ -543,8 +543,8 @@ ARM Macro Assembler    Page 9
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=blance_car\startup_stm32f103xe.d -oblance_car\startup_stm32f103xe.
-o -I.\RTE\_blance_car -IE:\keil\ARM\CMSIS\6.3.0\CMSIS\Core\Include -IE:\keil\Ke
+ork --depend=balance_car\startup_stm32f103xe.d -obalance_car\startup_stm32f103xe.
+o -I.\RTE\_balance_car -IE:\keil\ARM\CMSIS\6.3.0\CMSIS\Core\Include -IE:\keil\Ke
 il\STM32F1xx_DFP\2.4.1\Device\Include --predefine="__MICROLIB SETA 1" --predefi
 ne="__UVISION_VERSION SETA 543" --predefine="STM32F10X_HD SETA 1" --predefine="
 _RTE_ SETA 1" --list=startup_stm32f103xe.lst startup_stm32f103xe.s

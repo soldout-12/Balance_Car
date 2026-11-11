@@ -26,7 +26,7 @@ extern float s_speed_cmd ;//速度曲线
 extern float tilt_offset;	//速度环输出的平衡点偏移量(°)，不是MPU实测俯仰角
 extern float pwm_L;
 extern  float pwm_R;
-extern float Blance_Target;
+extern float Balance_Target;
 extern CarState_t current_state;
 void Motor_Task();
 /* 电机直通测试：on=1 时两个电机以固定占空比正反转（绕开全部PID），

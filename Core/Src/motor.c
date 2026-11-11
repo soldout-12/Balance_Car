@@ -9,7 +9,7 @@ uint16_t Motor1_Duty_Cycle;
 uint16_t Motor2_Duty_Cycle;
 
 
-float Blance_Target = -5.4f;
+float Balance_Target = -5.4f;
 float Line_Follow_Speed =24.0f;   /* 循迹目标速度(编码器计数/10ms)，5~10先慢后快 */
 
 /* 弯道速度规划：中心附近保持全速，偏差越大目标速度越低。
@@ -106,10 +106,10 @@ static float Lost_SteerOut(void)
 
 /* 启动自动校准平衡中值：
    使能后只在"车近似静止"(|θ|和角速度都小)时采样俯仰角，累计够
-   MID_CAL_SAMPLES 个后取平均写入 Blance_Target，消除重心/安装不对称
+   MID_CAL_SAMPLES 个后取平均写入 Balance_Target，消除重心/安装不对称
    带来的直流偏置（手动值-2.7会被覆盖）。不按固定时间卡：扶着或自稳都行，
    最长等 MID_CAL_MAX_WAIT 个周期，超时未完成则放弃、保留当前值。
-   注意：它只治"歪/漂"，不治"晃"。0=关闭，恢复手动调 Blance_Target */
+   注意：它只治"歪/漂"，不治"晃"。0=关闭，恢复手动调 Balance_Target */
 #define AUTO_BALANCE_MID    0
 #define MID_CAL_SAMPLES     400     /* 静止采样个数，约2~4秒采完 */
 #define MID_CAL_MAX_WAIT    3000    /* 最长等待约15秒(按5ms控制周期估算) */
@@ -406,7 +406,7 @@ void Motor_Task(void)
                 (gyro_dps[1] > -MID_CAL_GYRO_TH) && (gyro_dps[1] < MID_CAL_GYRO_TH)) {//俯仰角横滚角在建准范围
             mid_cal_n++;
             mid_cal_sum += fdata[0];
-            Blance_Target = mid_cal_sum / mid_cal_n;   /* 递推平均，目标角平滑挪动 */
+            Balance_Target = mid_cal_sum / mid_cal_n;   /* 递推平均，目标角平滑挪动 */
             uart2_send_string("AUTO_BALANCE_OK!");
             }
             /* 超时没采够：放弃本次校准，保留现有值(手动-2.7或已采部分) */
@@ -415,7 +415,7 @@ void Motor_Task(void)
             }
         }
 #endif
-        Balance_PID(Blance_Target);
+        Balance_PID(Balance_Target);
     } else {
         /* 刚停车的瞬间复位各环：清积分/误差，防止下次启动带着残留积分蹿车 */
         if (s_last_key) {

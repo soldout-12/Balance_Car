@@ -45,7 +45,7 @@ CmdMap_t cmd_table[] = {
     //前进速度
     {"Speed",    &Line_Follow_Speed},
     //机械中值
-    {"Blance_Target",    &Blance_Target},
+    {"Balance_Target",    &Balance_Target},
 };
 
 #define CMD_TABLE_SIZE (sizeof(cmd_table) / sizeof(cmd_table[0]))

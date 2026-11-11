@@ -1,5 +1,5 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\keilARM\ARM\ARM_Compiler_5.06u7\Bin'
-Build target 'blance_car'
+Build target 'balance_car'
 compiling uart_vofa.c...
 ../Core/Inc/motor.h(23): warning:  #1295-D: Deprecated declaration Motor_Task - give arg types
   void Motor_Task();
@@ -21,5 +21,5 @@ compiling usart.c...
 linking...
 Program Size: Code=23812 RO-data=14316 RW-data=236 ZI-data=2988  
 FromELF: creating hex file...
-"blance_car\blance_car.axf" - 0 Error(s), 7 Warning(s).
+"balance_car\balance_car.axf" - 0 Error(s), 7 Warning(s).
 Build Time Elapsed:  00:00:01

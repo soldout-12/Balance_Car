@@ -18,17 +18,17 @@
             "intelliSenseMode": "gcc-arm"
         },
         {
-            "name": "blance_car",
+            "name": "balance_car",
             "includePath": [
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\Core\\Inc",
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\Drivers\\CMSIS\\Include",
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\Core\\Inc",
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\Drivers\\CMSIS\\Include",
                 "E:\\keilARM\\ARM\\ARMCC\\include",
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\MDK-ARM",
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\Core\\Src",
-                "d:\\embedded\\stm32\\STM32F103VET6\\blance_car\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\MDK-ARM",
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\Core\\Src",
+                "d:\\embedded\\stm32\\STM32F103VET6\\balance_car\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

@@ -1,5 +1,5 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\keilARM\ARM\ARM_Compiler_5.06u7\Bin'
-Build target 'blance_car'
+Build target 'balance_car'
 compiling tracking.c...
 ../Core/Inc/tracking.h(7): warning:  #1295-D: Deprecated declaration Tracking_Task_Init - give arg types
   void Tracking_Task_Init();
@@ -13,5 +13,5 @@ compiling tracking.c...
 linking...
 Program Size: Code=23948 RO-data=14316 RW-data=240 ZI-data=2992  
 FromELF: creating hex file...
-"blance_car\blance_car.axf" - 0 Error(s), 4 Warning(s).
+"balance_car\balance_car.axf" - 0 Error(s), 4 Warning(s).
 Build Time Elapsed:  00:00:01
