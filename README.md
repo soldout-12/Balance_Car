@@ -1,19 +1,43 @@
 # Balance_Car — STM32 两轮自平衡循迹小车
 
-基于 **STM32F103VET6** 的两轮自平衡车，站立、前进/后退、转向、循迹、丢线找回全在一颗 Cortex-M3 上完成。
+基于 **STM32F103VET6** 的两轮自平衡车，站立、前进/后退、转向、循迹、丢线找回全在一颗 Cortex-M3 上完成。因为手里没有合适的板子，就用做信号的板子当主控了
 控制策略为经典的**串级 PID**：直立环（内环）→ 速度环（外环）→ 转向/循迹（差速通道），所有环共用一个 200 Hz 的时基。
-
-> 项目命名已统一为 `Balance`（早期版本误拼为 `Blance`，现已更正）。
 
 ---
 
+
+
+##  亮点
+
+###  结构
+
+- 采用轮趣编码电机*2
+
+- 感为科技循迹模块*1
+
+- 电机驱动模块tb6612*1
+
+- 陀螺仪模块，TFT彩屏，蓝牙串口远程调试
+
+###  代码
+
+- 代码部分基于hal库编写
+
+- pid包括内环直立（角度）环，外环速度环叠加内环，差速环实现循迹转向，以及丢线记忆处理
+
+- lcd通信采用硬件spi,显示采用DMA+环形缓冲区
+
+- 串口通过上位机vofa实现远程控制
+
+- 陀螺仪通信采用软件iic
+
 ## 实物与运行
 
-| 俯视整车 | 侧视（示波器调参环境） | 传感器特写 |
-| :---: | :---: | :---: |
-| ![俯视](img/43a46207dbb5a016e50db349e33b65f2.jpg) | ![侧视](img/53eb309efde2cc8383d84559a35062db.jpg) | ![传感器](img/7926fa77a491b492c8011173fc77c0cf.jpg) |
+| 俯视整车 | 侧视1 | 侧视2 | 传感器特写 |
+| :---: | :---: | :---: | :---: |
+| ![俯视](img/俯视整车.jpg) | ![侧视1](img/侧视1.jpg) | ![侧视2](img/侧视2.jpg) | ![传感器](img/传感器特写.jpg) |
 
-运行视频：[vedio/balance_car.mp4](vedio/balance_car.mp4)
+运行视频：[balance_car.mp4](vedio/balance_car.mp4)
 
 ---
 
@@ -109,7 +133,7 @@ STATE_TRACK ──丢线──▶ STATE_LOST ──重新看到线──▶ STAT
 │              usart.c     DMA+IDLE 接收、环形队列
 │              lcd.c/ILI9341.c  LCD 驱动与 DMA 异步刷图
 ├── Drivers/    STM32F1 HAL + CMSIS
-├── MDK-ARM/    Keil 工程（balance_car.uvprojx）
+├── MDK-ARM/    Keil 工程（blance_car.uvprojx）
 ├── img/        实物照片与图片资源
 └── vedio/      运行视频
 ```
@@ -118,13 +142,13 @@ STATE_TRACK ──丢线──▶ STATE_LOST ──重新看到线──▶ STAT
 
 ## 编译与烧录
 
-用 **Keil MDK 5** 打开 `MDK-ARM/balance_car.uvprojx`，选择 `STM32F103VET6`，直接编译。
+用 **Keil MDK 5** 打开 `MDK-ARM/blance_car.uvprojx`，选择 `STM32F103VET6`，直接编译。
 编译器宏：`USE_HAL_DRIVER, STM32F103xE`。
 
-调 `Core/Src/balance_car.ioc` 的硬件配置后，用 **STM32CubeMX** 重新生成代码即可
+调 `Core/Src/blance_car.ioc` 的硬件配置后，用 **STM32CubeMX** 重新生成代码即可
 （本仓库 `.ioc` 与代码保持同步）。
 
-固件已构建在 `MDK-ARM/balance_car/balance_car.hex`，可直接烧录。
+固件已构建在 `MDK-ARM/blance_car/blance_car.hex`，可直接烧录。
 
 ---
 
@@ -152,7 +176,7 @@ STATE_TRACK ──丢线──▶ STATE_LOST ──重新看到线──▶ STAT
 | `PID_Turn_Kp` | 转向环比例 | 0.0（默认关闭） |
 | `LinePID_Kp` | 循迹环比例 | -25.0 |
 | `Speed` | 循迹目标速度（编码器计数/10 ms） | 24.0 |
-| `Balance_Target` | 机械中值（平衡目标角度，°） | -5.4 |
+| `Blance_Target` | 机械中值（平衡目标角度，°） | -5.4 |
 
 把某个 Kp 置 0 即等于关闭该环（`pid_IsActive()` 的判定规则）。
 
@@ -180,8 +204,8 @@ VOFA 里选 FireWater 协议即可直接绘图。
 
 ### 调参注意事项（都是代码里踩过的坑）
 
-- **`Balance_Target` 是"机械中值"**，不是当前俯仰角。改它会整体平移平衡点，车会持续往前/往后倒。
-- **`PITCH_OFFSET`（mpu6050.c，默认 16.8°）与 `Balance_Target` 是两个量**：前者是传感器安装角误差，后者是控制目标角。装车后只调后者。
+- **`Blance_Target` 是"机械中值"**，不是当前俯仰角。改它会整体平移平衡点，车会持续往前/往后倒。
+- **`PITCH_OFFSET`（mpu6050.c，默认 16.8°）与 `Blance_Target` 是两个量**：前者是传感器安装角误差，后者是控制目标角。装车后只调后者。
 - **直立环 Kp/Kd 必须同号**（当前都为负）。error 已统一为 `target - current`，Kp 取负才是"倒下去向前救"；若把 Kd 单独改成正的，会变成正反馈，车会立刻飞掉。
 - **速度环 `integral_separation` 必须为 0**。若设非 0，静止时 error=目标速度恒大于门限，积分被永久禁掉，导致"车不动→误差大→没积分→更不动"的死锁。
 - **装车后若车往一侧跑偏或原地打转**，把 `STEER_ENC_KP` 改成负值（电机安装方向不匹配）。
@@ -194,7 +218,6 @@ VOFA 里选 FireWater 协议即可直接绘图。
 - `STATE_ESTOP` 目前只有出口没有入口，**没有倒地保护**。失控/倒地时电机不会自动停，调试时请远离车体、注意人身安全。
 - 灰度判线依赖"最黑通道黑度 ≥ 170"（`LINE_BLACK_MIN`），换赛道材质/光照后需重新标定该阈值。
 - 未接 RTOS，全部是裸机前后台（主循环 + TIM6 中断）；软件 IIC 的位延迟未做精确定标，换主频需重调。
-- `Motor_Test_Set()` 仅在头文件中声明，尚未实现。
 
 ---
 
